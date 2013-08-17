@@ -1,0 +1,114 @@
+<div class="row-fluid">
+      <div class="row-fluid">
+        <div id="errors" style="display:none" class="alert alert-error span6">标题或者内容不能为空</div>
+      </div>
+      <div class="controls">
+        <input id="inputTitle" placeholder="标题栏" type="text" class="input-xxlarge">
+      </div>
+      <div data-role="editor-toolbar" data-target="#editor" class="btn-toolbar">
+        <div class="btn-group"><a data-toggle="dropdown" title="Font" class="btn dropdown-toggle"><i class="icon-font"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu"></ul>
+        </div>
+        <div class="btn-group"><a data-toggle="dropdown" title="Font Size" class="btn dropdown-toggle"><i class="icon-text-height"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+            <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+            <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+          </ul>
+        </div>
+        <div class="btn-group"><a data-edit="bold" title="Bold (Ctrl/Cmd+B)" class="btn"><i class="icon-bold"></i></a><a data-edit="italic" title="Italic (Ctrl/Cmd+I)" class="btn"><i class="icon-italic"></i></a><a data-edit="strikethrough" title="Strikethrough" class="btn"><i class="icon-strikethrough"></i></a><a data-edit="underline" title="Underline (Ctrl/Cmd+U)" class="btn"><i class="icon-underline"></i></a></div>
+        <div class="btn-group"><a data-edit="insertunorderedlist" title="Bullet list" class="btn"><i class="icon-list-ul"></i></a><a data-edit="insertorderedlist" title="Number list" class="btn"><i class="icon-list-ol"></i></a><a data-edit="outdent" title="Reduce indent (Shift+Tab)" class="btn"><i class="icon-indent-left"></i></a><a data-edit="indent" title="Indent (Tab)" class="btn"><i class="icon-indent-right"></i></a></div>
+        <div class="btn-group"><a data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)" class="btn"><i class="icon-align-left"></i></a><a data-edit="justifycenter" title="Center (Ctrl/Cmd+E)" class="btn"><i class="icon-align-center"></i></a><a data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)" class="btn"><i class="icon-align-right"></i></a><a data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)" class="btn"><i class="icon-align-justify"></i></a></div>
+        <div class="btn-group"><a data-toggle="dropdown" title="Hyperlink" class="btn dropdown-toggle"><i class="icon-link"></i></a>
+          <div class="dropdown-menu input-append">
+            <input placeholder="URL" type="text" data-edit="createLink" class="span2">
+            <button type="button" class="btn">Add</button>
+          </div><a data-edit="unlink" title="Remove Hyperlink" class="btn"><i class="icon-cut"></i></a>
+        </div>
+        <div class="btn-group"><a id="pictureBtn" title="Insert picture (or just drag &amp; drop)" class="btn"><i class="icon-picture"></i></a>
+          <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+        </div>
+        <div class="btn-group"><a data-edit="undo" title="Undo (Ctrl/Cmd+Z)" class="btn"><i class="icon-undo"></i></a><a data-edit="redo" title="Redo (Ctrl/Cmd+Y)" class="btn"><i class="icon-repeat"></i></a></div>
+        <input id="voiceBtn" type="text" data-edit="inserttext" x-webkit-speech="">
+      </div>
+      <div id="editor"></div><br>
+      <select class="span2" id="category" >
+          <option ng-repeat="category in categoriesResult.categories" value="{{category.name}}" >
+              {{category.name}}
+          </option>
+      </select>
+     <br>
+      <button type="button" class="btn btn-success ">提交</button>&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-inverse">取消</button>
+    </div>
+        <script>
+            $(function() {
+                function initToolbarBootstrapBindings() {
+                    var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+                                'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                                'Times New Roman', 'Verdana'
+                            ],
+                            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+                    $.each(fonts, function(idx, fontName) {
+                        fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
+                    });
+                    $('a[title]').tooltip({
+                        container: 'body'
+                    });
+                    $('.dropdown-menu input').click(function() {
+                        return false;
+                    })
+                            .change(function() {
+                                $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');
+                            })
+                            .keydown('esc', function() {
+                                this.value = '';
+                                $(this).change();
+                            });
+
+                    $('[data-role=magic-overlay]').each(function() {
+                        var overlay = $(this),
+                                target = $(overlay.data('target'));
+                        overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+                    });
+                    if ("onwebkitspeechchange" in document.createElement("input")) {
+                        var editorOffset = $('#editor').offset();
+                        $('#voiceBtn').css('position', 'absolute').offset({
+                            top: editorOffset.top,
+                            left: editorOffset.left + $('#editor').innerWidth() - 35
+                        });
+                    } else {
+                        $('#voiceBtn').hide();
+                    }
+                };
+
+                function showErrorAlert(reason, detail) {
+                    var msg = '';
+                    if (reason === 'unsupported-file-type') {
+                        msg = "Unsupported format " + detail;
+                    } else {
+                        console.log("error uploading file", reason, detail);
+                    }
+                    $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+                };
+                initToolbarBootstrapBindings();
+                $('#editor').wysiwyg({
+                    fileUploadError: showErrorAlert
+                });
+
+                $(".btn-success").bind("click",function(){
+                    var title = $("#inputTitle").val();
+                    var content = $("#editor").html();
+                    var category = $("#category").val();
+                    if(title===""||content===""){
+                        $("#errors").show();
+                        return;
+                    }
+                    $("#errors").hide();
+                    $.post("http://localhost:3000/api/post","title="+window.encodeURIComponent(title)+"&post="+window.encodeURIComponent(content)+"&category="+window.encodeURIComponent(category),function(result){
+                        window.location = "#/post/"+result;
+                    });
+                });
+            });
+        </script>

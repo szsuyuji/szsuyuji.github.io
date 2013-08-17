@@ -1,0 +1,19 @@
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8">
+            <blockquote ng-repeat="post in postsResult.posts">
+                <p style="color:white">
+                   {{post.title}}
+                </p> <small>关键词 <cite>开源</cite></small>
+                <div ng-bind-html="post.content"  style="color:white">
+
+
+                </div>
+            </blockquote>
+
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+</div>
