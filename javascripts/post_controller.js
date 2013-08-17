@@ -3,15 +3,15 @@ config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
 		when('/', {
-			templateUrl: '/views/index.html',
+			templateUrl: 'views/index.html',
 			controller: indexCtrl
 		}).
 		when('/post/:postId', {
-			templateUrl: '/views/post-detail.html',
+			templateUrl: 'views/post-detail.html',
 			controller: postDetailCtrl
 		}).
 		when('/post', {
-			templateUrl: '/views/post-new.html',
+			templateUrl: 'views/post-new.html',
 			controller:categoriesCtrl
 		}).
 		otherwise({
@@ -20,8 +20,8 @@ config(['$routeProvider',
 	}
 ]);
 
-//var rest_server = "http://suyuji.ap01.aws.af.cm";
-var rest_server = "http://localhost::port";
+var rest_server = "http://suyuji.ap01.aws.af.cm";
+//var rest_server = "http://localhost::port";
 var port = "3000";
 
 var indexCtrl = function($scope, $resource, $routeParams) {
