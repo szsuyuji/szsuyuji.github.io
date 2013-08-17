@@ -106,7 +106,7 @@
                         return;
                     }
                     $("#errors").hide();
-                    $.post("http://localhost:3000/api/post","title="+window.encodeURIComponent(title)+"&post="+window.encodeURIComponent(content)+"&category="+window.encodeURIComponent(category),function(result){
+                    $.post("http://suyuji.ap01.aws.af.cm/api/post","title="+window.encodeURIComponent(title)+"&post="+window.encodeURIComponent(content)+"&category="+window.encodeURIComponent(category),function(result){
                         window.location = "#/post/"+result;
                     });
                 });
