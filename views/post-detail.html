@@ -18,10 +18,14 @@
           <p class="text-center">{{result.post.user}}{{(result.post.time)| date:'yyyy-MM-dd HH:mm'}}</p>
           <div class="row-fluid">
               <p ><span class="badge" >分类：{{result.post.category}}</span>
-              <span class="badge offset8" >浏览/评论：{{result.post.browsed}}/{{commentsResult.comments.totalRecords}}</span> </p>
+              <span class="badge offset6" >浏览/评论：{{result.post.browsed}}/{{commentsResult.comments.totalRecords}}</span> </p>
           </div>
         <div class="row-fluid ">
-          <div ng-bind-html="result.post.content" class="span12 box" ></div>
+          <div  class="span12 box" >
+              <pre ng-bind-html="result.post.content">
+
+              </pre>
+          </div>
         </div>
         <br>
           <div class="row-fluid">
