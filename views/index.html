@@ -6,9 +6,10 @@
                 <p style="color:white">
                   <a href="#/post/{{post._id}}">{{post.title}}</a>
                 </p> <small>关键词 <cite>开源</cite></small>
-                <div ng-bind-html="post.content"  style="color:white">
+                <div style="color:white">
+                    <pre  ng-bind-html="post.content" >
 
-
+                    </pre>
                 </div>
             </blockquote>
 
