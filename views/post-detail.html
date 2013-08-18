@@ -15,7 +15,7 @@
     <div class="row-fluid">
       <div class="span7 offset1">
         <h3 class="text-center " style="margin-bottom: 0px;margin-top: 0px;color:white;">{{result.post.title}}</h3>
-          <p class="text-center" style="color: #d3d3d3">{{result.post.user}}{{'('}}{{(result.post.time)| date:'yyyy-MM-dd HH:mm'}}{{')'}}</p>
+          <p class="text-center" style="color: #d3d3d3">{{result.post.user+'('+(result.post.time| date:'yyyy-MM-dd HH:mm')+')'}}</p>
           <div class="row-fluid">
               <p ><span class="badge" >分类：{{result.post.category}}</span>
               <span class="badge" >浏览/评论：{{result.post.browsed}}/{{commentsResult.comments.totalRecords}}</span> </p>
