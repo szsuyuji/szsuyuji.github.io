@@ -1,0 +1,18 @@
+body{padding:0px;background-color: #363636;}
+.enter-view-setup{
+    -webkit-transition: .2s linear all;
+    -moz-transition: .2s linear all;
+    -o-transition: .2s linear all;
+    transition: .2s linear all;
+    position:relative;
+    left:100%;
+    opacity:0;
+}
+.enter-view-setup.enter-view-start{
+    left:0;
+    opacity: 1;
+}
+
+.content{
+    margin: 50px 0px;
+}
