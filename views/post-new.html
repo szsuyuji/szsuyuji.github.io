@@ -32,6 +32,10 @@
         <input id="voiceBtn" type="text" data-edit="inserttext" x-webkit-speech="">
       </div>
       <div id="editor"></div><br>
+        <div class="controls">
+        <label class="control-label" for="tags" style="color: #ffffff">标签：多个标签用“,”分隔</label>
+        <input type="text" class="input-xxlarge" id="tags" name="tags">
+        </div>
       <select class="span2" id="category" >
           <option ng-repeat="category in categoriesResult.categories" value="{{category.name}}" >
               {{category.name}}
