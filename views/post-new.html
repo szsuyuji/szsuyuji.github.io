@@ -105,12 +105,13 @@
                     var title = $("#inputTitle").val();
                     var content = $("#editor").html();
                     var category = $("#category").val();
+                    var tags = $("#tags").val();
                     if(title===""||content===""){
                         $("#errors").show();
                         return;
                     }
                     $("#errors").hide();
-                    $.post("http://suyuji.ap01.aws.af.cm/api/post","title="+window.encodeURIComponent(title)+"&post="+window.encodeURIComponent(content)+"&category="+window.encodeURIComponent(category),function(result){
+                    $.post("http://suyuji.ap01.aws.af.cm/api/post","title="+window.encodeURIComponent(title)+"&post="+window.encodeURIComponent(content)+"&category="+window.encodeURIComponent(category)+"&tags="+window.encodeURIComponent(tags),function(result){
                         window.location = "#/post/"+result;
                     });
                 });

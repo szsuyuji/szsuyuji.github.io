@@ -13,7 +13,7 @@
 
      </style>
     <div class="row-fluid">
-      <div class="span7 offset1">
+      <div class="span12 ">
         <h3 class="text-center " style="margin-bottom: 0px;margin-top: 0px;color:white;">{{result.post.title}}</h3>
           <p class="text-center" style="color: #d3d3d3">{{result.post.user+'('+(result.post.time| date:'yyyy-MM-dd HH:mm')+')'}}</p>
           <div class="row-fluid">
@@ -40,7 +40,7 @@
 
           <div class="row-fluid" ng-repeat="comment in commentsResult.comments.docs" style="margin-bottom: 20px">
                 <div class="span2" style="text-align: right;vertical-align: middle">
-                <img src="http://1.gravatar.com/avatar/bc9ce07bb594d1db3211b4d67e4f8565?s=68&d=monsterid&r=G">
+                <img src="http://1.gravatar.com/avatar/{{comment.user_hash}}?s=68&d=monsterid&r=G">
                 </div>
                  <div class="span10">
                  <span class="popover fade right in" style="position: relative; display: block;max-width:500px">
@@ -99,11 +99,5 @@
              </form>
 
         </div>
-      </div>
-      <div class="span3">
-        <form class="form-search">
-          <input type="text" class="input-medium search-query offset1">
-          <button type="submit" class="btn">查找</button>
-        </form>
       </div>
     </div>

@@ -3,7 +3,7 @@
             <blockquote ng-repeat="post in postsResult.posts">
                 <p style="color:white">
                   <a href="#/post/{{post._id}}">{{post.title}}</a>
-                </p> <small>关键词 <cite>开源</cite></small>
+                </p> <small>关键词 <cite ng-repeat="tag in post.tags">{{tag}}</cite></small>
                 <div style="color:white">
                     <pre  ng-bind-html="post.content" >
 
