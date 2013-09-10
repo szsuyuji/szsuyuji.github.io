@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+        <canvas width="600" height="600" id="paint2" >
+
+
+
+        </canvas>
+        <script type="text/javascript">
+            var Vector2 = function(x,y){
+                this.x = x;
+                this.y= y;
+            }
+            Vector2.prototype = {
+                multiply:function(f){
+                      return new Vector2(this.x* f,this.y* f);
+                },
+                dot:function(v){
+                      return new Vector2(this.x* v.x,this.y* v.y);
+                },
+                add:function(v){
+                    return new Vector2(this.x+ v.x,this.y+ v.y);
+                },
+                divide:function(f){
+                    return new   Vector2(this.x/f,this.y/f);
+                }
+            };
+
+           var position = new Vector2(10,200);
+           var velocity = new Vector2(50,-50);
+           var g = new Vector2(0,10);
+           var dt = 0.1;
+           function run1(){
+               position = position.add(velocity.multiply(0.1));
+               velocity = velocity.add(g.multiply(0.1));
+
+               ctx.strokeStyle = "#000000";
+               ctx.fillStyle = "#FFFFFF";
+               ctx.beginPath();
+               ctx.arc(position.x, position.y, 5, 0, Math.PI*2, true);
+               ctx.closePath();
+               ctx.fill();
+               ctx.stroke();
+           }
+
+
+           var position2 = new Vector2(380,780);
+           var initVelocity = new Vector2(0,-10);
+           var tailVelocity ;
+           var g2 = new Vector2(0,10);
+           var t =0.01;
+           function run2(){
+               tailVelocity = initVelocity.add(g2.multiply(t));
+               position2 = position2.add(initVelocity.add(tailVelocity).multiply(t).divide(2));
+
+               var x =position2.x;
+               var y= position2.y;
+
+               ctx.fillStyle="rgba(0, 0, 0, 0.1)";
+               ctx.fillRect(0,0,canvas.width,canvas.height);
+               render(x,y);
+               t=t+0.01;
+           }
+            function clear() { // clear canvas function
+
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            }
+
+            var render = function(x,y){
+                ctx.strokeStyle = "#000000";
+                ctx.fillStyle = "red";
+                ctx.beginPath();
+                ctx.fillRect(x-20,y-20,20,20);
+                ctx.strokeRect(x-20,y-20,20,20);
+            }
+            var canvas =  document.getElementById("paint2");
+            var ctx = canvas.getContext("2d");
+
+
+           function start(){
+
+                   run2();
+
+              setInterval(run2,1);
+           }
+           start();
+        </script>
+</body>
+</html>
