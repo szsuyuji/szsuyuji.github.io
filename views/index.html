@@ -5,7 +5,7 @@
                   <a href="#/post/{{post._id}}">{{post.title}}</a>
                 </p> <small>关键词 <cite ng-repeat="tag in post.tags">{{tag}}</cite></small>
                 <div style="color:white">
-                    <pre  ng-bind-html="post.content" >
+                    <pre  ng-bind-html-unsafe="post.content" >
 
                     </pre>
                 </div>
